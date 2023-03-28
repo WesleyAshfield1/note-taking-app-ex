@@ -1,14 +1,14 @@
-const express = require('express');
+const express = require('express')
+const path = require('path');
+const fs = require('fs')
+const app = express()
 
-const PORT = 5001;
-
-const app = express();
+const PORT = process.env.PORT || 5001
 
 // Middleware for parsing JSON and urlencoded form data
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
-
+app.use(express.static('public'))
+app.use(express.static('db'))
+app.use(express.json())
 
 app.get('/api/notes', (req, res) => {
   const notes = JSON.parse(fs.readFileSync(path.join(__dirname, 'db/db.json')));
